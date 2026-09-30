@@ -153,6 +153,11 @@ if(!(isset($_SESSION['user_login'])))
               <td>                    
                  <input type="text" name="age" style="width:25px;">&nbsp;&nbsp;<span class="style8">Years&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="agemonths" style="width:25px;" value="0">&nbsp;&nbsp;<span class="style8">Months</span>
 				  </td></tr>
+
+                  <tr> <td class="style8">PMJAY :</td>
+              <td>
+                 <select name="pmjay" required><option value="" selected disabled>-- Select --</option><option value="Yes">Yes</option><option value="No">No</option></select>
+				  </td></tr>
                   
                   <tr> <td class="style8">Doctor :</td>
               <td>

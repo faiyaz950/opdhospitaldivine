@@ -161,6 +161,11 @@ $refer_name = getReferDocName($refer_id);
                  <input type="text" name="age" style="width:25px;" value="<?php echo $pq['age']; ?>"><span class="style8">Years&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="agemonths" style="width:25px;" value="<?php echo $pq['agemonths']; ?>">&nbsp;&nbsp;<span class="style8">Months</span>
 				  </td></tr>
 
+                  <tr> <td class="style8">PMJAY :</td>
+              <td>
+                 <select name="pmjay" required><option value="" disabled<?php if ($pq['pmjay'] != 'Yes' && $pq['pmjay'] != 'No') echo ' selected'; ?>>-- Select --</option><option value="Yes"<?php if ($pq['pmjay'] == 'Yes') echo ' selected'; ?>>Yes</option><option value="No"<?php if ($pq['pmjay'] == 'No') echo ' selected'; ?>>No</option></select>
+				  </td></tr>
+
  <tr> <td class="style8">Remarks :</td>
               <td>                    
                  <textarea name="remarks" rows="5" cols="30"><?php echo $pq['remarks']; ?></textarea>
