@@ -1,0 +1,213 @@
+/* Printable bill / receipt documents */
+
+:root {
+    --doc-font: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    --doc-text: #0f172a;
+    --doc-text-2: #334155;
+    --doc-muted: #64748b;
+    --doc-border: #e3e9f1;
+    --doc-soft: #f8fafc;
+    --doc-primary: #0f766e;
+    --doc-primary-50: #effaf8;
+}
+
+html {
+    background: #eef2f7;
+}
+
+body {
+    position: relative;
+    max-width: 840px;
+    margin: 40px auto;
+    padding: 48px 52px 44px;
+    border: 1px solid var(--doc-border);
+    border-top: 6px solid var(--doc-primary);
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 24px 48px -16px rgba(15, 23, 42, .18);
+    color: var(--doc-text-2);
+    font-family: var(--doc-font) !important;
+    font-size: 14px !important;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+body > table:first-of-type {
+    width: 100%;
+    margin: 0 0 8px;
+}
+
+body > table:first-of-type td {
+    text-align: center;
+}
+
+body > table:first-of-type span {
+    font-family: var(--doc-font) !important;
+    color: var(--doc-text) !important;
+}
+
+body > table:first-of-type span:first-child {
+    display: inline-block;
+    margin-bottom: 6px;
+    color: var(--doc-primary) !important;
+    font-size: 26px !important;
+    font-weight: 800 !important;
+    letter-spacing: .06em;
+}
+
+body > table:first-of-type span + br + span {
+    color: var(--doc-text-2) !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    line-height: 1.6;
+}
+
+body > table:first-of-type span:last-of-type {
+    display: inline-block;
+    margin-top: 4px;
+    padding: 4px 12px;
+    border-radius: 999px;
+    background: var(--doc-primary-50);
+    color: var(--doc-primary) !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+}
+
+hr {
+    height: 1px;
+    margin: 24px 0;
+    border: 0;
+    background: var(--doc-border);
+}
+
+body > div[align="center"] {
+    color: var(--doc-text);
+    font-size: 13px !important;
+    font-weight: 700;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+}
+
+body > div[align="center"] u {
+    text-decoration: none;
+}
+
+body > div[align="right"] {
+    display: inline-block;
+    float: right;
+    padding: 8px 14px;
+    border: 1px solid var(--doc-border);
+    border-radius: 10px;
+    background: var(--doc-soft);
+    color: var(--doc-text-2);
+    font-size: 13px;
+}
+
+body > div[align="right"] + br {
+    clear: both;
+}
+
+table[border="1"] {
+    width: 100%;
+    margin: 8px 0 12px;
+    border: 1px solid var(--doc-border) !important;
+    border-collapse: separate !important;
+    border-spacing: 0;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+table[border="1"] td,
+table[border="1"] th {
+    padding: 12px 16px !important;
+    border: 0;
+    border-bottom: 1px solid var(--doc-border);
+    color: var(--doc-text-2);
+    font-size: 13.5px !important;
+    vertical-align: middle;
+}
+
+table[border="1"] tr:last-child td {
+    border-bottom: 0;
+}
+
+table[border="1"] td[style*="bold"] {
+    background: var(--doc-soft);
+    color: var(--doc-muted);
+    font-size: 11.5px !important;
+    letter-spacing: .06em;
+}
+
+table[border="1"] th {
+    background: var(--doc-soft);
+    color: var(--doc-muted);
+    font-size: 11.5px !important;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+table[border="1"] td[colspan] {
+    padding: 16px !important;
+    background: var(--doc-primary-50);
+    color: var(--doc-primary);
+    font-size: 16px !important;
+    font-weight: 700;
+}
+
+table[border="1"] td[colspan] strong {
+    color: var(--doc-text);
+}
+
+p {
+    margin: 12px 0;
+}
+
+p[align="right"] {
+    margin-top: 40px;
+    color: var(--doc-text);
+}
+
+p[align="right"] strong {
+    display: inline-block;
+    margin-bottom: 4px;
+    color: var(--doc-primary);
+}
+
+@media (max-width: 720px) {
+    body {
+        margin: 0;
+        padding: 28px 20px;
+        border-radius: 0;
+        box-shadow: none;
+    }
+}
+
+@media print {
+    @page {
+        margin: 14mm;
+    }
+
+    html {
+        background: #fff;
+    }
+
+    body {
+        max-width: none;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        border-top: 0;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    table[border="1"] td[style*="bold"],
+    table[border="1"] th,
+    table[border="1"] td[colspan],
+    body > table:first-of-type span:last-of-type {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}
