@@ -9,6 +9,7 @@ if(!(isset($_SESSION["user_login"])))
 //connect to the database
     include_once ('../DLL/config.php'); 
     $query = mysql_query("delete from investigate_mst where id='$id'");
+    mysql_query("delete from billing_mst where bill_type='Investigation' and bill_typenumber='$id'");
 	if($query)
 	{
 	header("location: ../show_investigate2.php");
