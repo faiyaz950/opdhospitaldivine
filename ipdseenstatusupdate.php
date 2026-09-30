@@ -11,7 +11,7 @@ if(!(isset($_SESSION["user_login"])))
     $query = mysql_query("update patipd_mst set seen='1' where created_date='$date'");
 	if($query)
 	{
-	header("location: ../hms/show_ipd1.php");
+	header("location: show_ipd1.php");
 	}	
 
 ?>

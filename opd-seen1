@@ -11,7 +11,7 @@ if(!(isset($_SESSION["user_login"])))
     $query = mysql_query("update opd_mst set seen='1' where id='$id'");
 	if($query)
 	{
-	header("location: ../hms/show_opd1.php");
+	header("location: show_opd1.php");
 	}	
 
 ?>

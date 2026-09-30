@@ -11,7 +11,7 @@ if(!(isset($_SESSION["user_login"])))
     $query = mysql_query("update investigate_mst set seen='1' where created_date='$date'");
 	if($query)
 	{
-	header("location: ../hms/show_investigate.php");
+	header("location: show_investigate.php");
 	}	
 
 ?>
