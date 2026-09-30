@@ -182,9 +182,7 @@ $year = $cr_date[0];
 				$updated_date=$row['updated_date'];
 				
 				
-				$su = mysql_query("select * from param_mst where type='uid_pformat'");
-				$su1 = mysql_fetch_array($su);
-				$l_uhid = $su1['last_value'];
+				$l_uhid = hms_uhid_prefix($id);
 
 if($time == '00:00:00')
 			{	

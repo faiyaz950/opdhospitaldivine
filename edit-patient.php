@@ -14,9 +14,7 @@ $refer_id = $pq['refer'];
 $refer_name = getReferDocName($refer_id);
 
 
-				$su = mysql_query("select * from param_mst where type='uid_pformat'");
-				$su1 = mysql_fetch_array($su);
-				$l_uhid = $su1['last_value'];
+				$l_uhid = hms_uhid_prefix($c);
 				
 				$docs = mysql_query("select * from doctor_mst order by doc_name asc");
 ?>

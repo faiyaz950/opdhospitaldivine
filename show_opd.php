@@ -214,9 +214,7 @@ echo "<th class='sortable-text'>OPD ID</th><th class='sortable-text'>UHID</th><t
                 $referby = $doc_name['doc_name'];
 
 				
-				$su = mysql_query("select * from param_mst where type='uid_pformat'");
-				$su1 = mysql_fetch_array($su);
-				$l_uhid = $su1['last_value'];
+				$l_uhid = hms_uhid_prefix($pid);
 				
 				$did=$row['did'];
                 $dsq = mysql_query("select * from department_mst where id = '$did'");

@@ -25,7 +25,7 @@ else
 {
 $pat_id=$_POST['pat_id'];
 $pa_id = explode('-', $pat_id);
-$p_id = $pa_id[1];
+$p_id = hms_uhid_pid($pat_id);
 $sq = mysql_query("select * from patient_mst where id = '$p_id'");
 }
 ?>
@@ -191,9 +191,7 @@ $sq = mysql_query("select * from patient_mst where id = '$p_id'");
 				$updated_date=$row['updated_date'];
 				
 				
-				$su = mysql_query("select * from param_mst where type='uid_pformat'");
-				$su1 = mysql_fetch_array($su);
-				$l_uhid = $su1['last_value'];
+				$l_uhid = hms_uhid_prefix($id);
 				
                                 
 

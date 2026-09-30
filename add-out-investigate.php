@@ -19,7 +19,7 @@ if(!(isset($_SESSION['user_login'])))
 
 $id = $_REQUEST['id'];
 $p_id = explode("/", $id);
-$p_id1 = $p_id[2];
+$p_id1 = hms_uhid_pid($id);
 				$psq = mysql_query("select * from patient_mst where id = '$p_id1'");
 				$psq1 = mysql_fetch_array($psq);
 				$pat_name = $psq1['pat_name'];
