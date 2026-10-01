@@ -177,7 +177,7 @@ $search = $_REQUEST['search'];
                 $doc_name = mysql_fetch_array($docs_list);
                 $referby = $doc_name['doc_name'];
 				
-				$l_uhid = hms_uhid_prefix($pid);
+				$l_uhid = hms_uhid($pid);
 				
 				$did=$row['rid'];
                 $dsq = mysql_query("select * from report_mst where id = '$did'");
@@ -189,7 +189,7 @@ $search = $_REQUEST['search'];
 				
                  $total = $total + $rep_charges;         
 
-                echo"<tr><td>$l_uhid$pid</td><td>$pat_name</td><td>$age</td> <td>$address</td> <td>$mobile_no</td><td>$dep_name</td><td>$rep_charges</td>   <td>$created_date</td><td>$referby</td> 
+                echo"<tr><td>$l_uhid</td><td>$pat_name</td><td>$age</td> <td>$address</td> <td>$mobile_no</td><td>$dep_name</td><td>$rep_charges</td>   <td>$created_date</td><td>$referby</td> 
 
 				  </tr>";
 

@@ -39,7 +39,7 @@ $doctor =  $_REQUEST['doctor'];
 		
 			if($search != '')
 		{
-		$statement = "`investigate_mst` where pid = '$search'";
+		$statement = "`investigate_mst` where pid = '" . hms_uhid_pid($search) . "'";
 		}
 		elseif($doctor != '') 
 		{
@@ -205,7 +205,7 @@ echo "<th class='sortable-text'>ID</th><th class='sortable-text'>UHID</th><th cl
                 $referby = $doc_name['doc_name'];
 
 				
-				$l_uhid = hms_uhid_prefix($pid);
+				$l_uhid = hms_uhid($pid);
 				
 				$did=$row['rid'];
                 $dsq = mysql_query("select * from report_mst where id = '$did'");
@@ -241,14 +241,14 @@ if($_SESSION['user_login']['email'] == 'admin')
 				if($seen == '1')
                  {               
 
-                echo"<tr><td>$id</td><td>$l_uhid$pid</td><td>$pat_name</td><td>$age</td> <td>$address</td> <td>$dep_name</td><td>$rep_charges</td>   <td>$day-$month-$year</td><td>$time</td><td>$referby</td><td><img src='images/Green_tick.png' /></td><td><a href='process/delete_investigate.php?id=$id'>Delete</a></td>
+                echo"<tr><td>$id</td><td>$l_uhid</td><td>$pat_name</td><td>$age</td> <td>$address</td> <td>$dep_name</td><td>$rep_charges</td>   <td>$day-$month-$year</td><td>$time</td><td>$referby</td><td><img src='images/Green_tick.png' /></td><td><a href='process/delete_investigate.php?id=$id'>Delete</a></td>
 
 				  </tr>";
 
                  }
 				 else
 				 {
-echo"<tr><td>$id</td><td>$l_uhid$pid</td><td>$pat_name</td><td>$age</td> <td>$address</td><td>$dep_name</td><td>$rep_charges</td>   <td>$day-$month-$year</td><td>$time</td><td>$referby</td><td><a href='investigate-seen.php?id=$id'><img src='images/red-tick.png' /></a></td><td><a href='process/delete_investigate.php?id=$id'>Delete</a></td>
+echo"<tr><td>$id</td><td>$l_uhid</td><td>$pat_name</td><td>$age</td> <td>$address</td><td>$dep_name</td><td>$rep_charges</td>   <td>$day-$month-$year</td><td>$time</td><td>$referby</td><td><a href='investigate-seen.php?id=$id'><img src='images/red-tick.png' /></a></td><td><a href='process/delete_investigate.php?id=$id'>Delete</a></td>
 
 				  </tr>";
 				 
@@ -262,14 +262,14 @@ if($_SESSION['user_login']['email'] != 'admin')
 				if($seen == '1')
                  {               
 
-                echo"<tr><td>$id</td><td>$l_uhid$pid</td><td>$pat_name</td><td>$age</td> <td>$address</td><td>$dep_name</td><td>$rep_charges</td>   <td>$day-$month-$year</td><td>$time</td><td>$referby</td>
+                echo"<tr><td>$id</td><td>$l_uhid</td><td>$pat_name</td><td>$age</td> <td>$address</td><td>$dep_name</td><td>$rep_charges</td>   <td>$day-$month-$year</td><td>$time</td><td>$referby</td>
 
 				  </tr>";
 
                  }
 				 else
 				 {
-echo"<tr><td>$id</td><td>$l_uhid$pid</td><td>$pat_name</td><td>$age</td> <td>$address</td><td>$dep_name</td><td>$rep_charges</td>   <td>$day-$month-$year</td><td>$time</td><td>$referby</td>
+echo"<tr><td>$id</td><td>$l_uhid</td><td>$pat_name</td><td>$age</td> <td>$address</td><td>$dep_name</td><td>$rep_charges</td>   <td>$day-$month-$year</td><td>$time</td><td>$referby</td>
 
 				  </tr>";
 				 

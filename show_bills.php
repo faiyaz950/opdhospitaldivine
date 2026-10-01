@@ -38,7 +38,7 @@ $search = $_REQUEST['search'];
 		
 				if($search != '')
 		{
-		$statement = "`billing_mst` where bill_typenumber = '$search' or pat_id='$search'";
+		$statement = "`billing_mst` where bill_typenumber = '$search' or pat_id='" . hms_uhid_pid($search) . "'";
 		}
         else
 		{

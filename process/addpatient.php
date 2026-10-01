@@ -19,6 +19,7 @@ $time = date("H:i:s", time());
 $sql = mysql_query("insert into patient_mst(pat_name,fat_name,sex,address,mobile_no,age,agemonths,refer,pmjay,created_date,created_time,updated_date) values ('$pat_name','$fat_name','$sex','$address','$mobile_no','$age', '$agemonths',  '$refer', '$pmjay', '$date','$time','$date')");
 if($sql)
 {
+hms_uhid_assign_series();
 header("Location: ../show_patients.php");
 }
 }

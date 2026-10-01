@@ -38,7 +38,7 @@ $search = $_REQUEST['search'];
 		
 			if($search != '')
 		{
-		$statement = "`appointment_mst` where pid = '$search'";
+		$statement = "`appointment_mst` where pid = '" . hms_uhid_pid($search) . "'";
 		}
         else
 		{
@@ -186,7 +186,7 @@ echo "<th class='sortable-text'>ID</th><th class='sortable-text'>UHID</th><th cl
 				$address = $psq1['address'];
 				$mobile_no = $psq1['mobile_no'];
 				
-				$l_uhid = hms_uhid_prefix($pid);
+				$l_uhid = hms_uhid($pid);
 				
 				$appointment_date = $row['appointment_date'];
 				$remarks = $row['remarks'];
@@ -195,14 +195,14 @@ echo "<th class='sortable-text'>ID</th><th class='sortable-text'>UHID</th><th cl
 if($_SESSION['user_login']['email'] == 'admin')
 {
 
-                echo"<tr><td>$id</td><td>$l_uhid$pid</td><td>$pat_name</td><td>$age</td> <td>$address</td> <td>$appointment_date</td><td>$remarks</td><td>$created_date</td><td><a href='process/delete_appointment.php?id=$id'>Delete</a></td>
+                echo"<tr><td>$id</td><td>$l_uhid</td><td>$pat_name</td><td>$age</td> <td>$address</td> <td>$appointment_date</td><td>$remarks</td><td>$created_date</td><td><a href='process/delete_appointment.php?id=$id'>Delete</a></td>
  
 
 				  </tr>";
 				  }
 				else
 				{
-echo"<tr><td>$id</td><td>$l_uhid$pid</td><td>$pat_name</td><td>$age</td> <td>$address</td> <td>$appointment_date</td><td>$remarks</td><td>$created_date</td>
+echo"<tr><td>$id</td><td>$l_uhid</td><td>$pat_name</td><td>$age</td> <td>$address</td> <td>$appointment_date</td><td>$remarks</td><td>$created_date</td>
  
 
 				  </tr>";

@@ -38,7 +38,7 @@ $search = $_REQUEST['search'];
 		
 			if($search != '')
 		{
-		$statement = "`opd_mst` where pid = '$search'";
+		$statement = "`opd_mst` where pid = '" . hms_uhid_pid($search) . "'";
 		}
         else
 		{
@@ -193,7 +193,7 @@ echo "<th class='sortable-text'>OPD ID</th><th class='sortable-text'>UHID</th><t
 				$mobile_no = $psq1['mobile_no'];
 				$refer = $psq1['refer'];
 				
-				$l_uhid = hms_uhid_prefix($pid);
+				$l_uhid = hms_uhid($pid);
 				
 				$did=$row['did'];
                 $dsq = mysql_query("select * from department_mst where id = '$did'");
@@ -229,14 +229,14 @@ if($_SESSION['user_login']['email'] == 'admin')
 			{     
                 if($seen == '1')
 				{
-                echo"<tr><td><FONT SIZE='3'>$id</FONT></td><td>$l_uhid$pid</td><td><FONT SIZE='4'>$pat_name</FONT></td><td>$age</td> <td>$address</td> <td>$fee</td>   <td>$day-$month-$year</td><td>------</td><td><a href='forms/opd-registration.php?id=$id' target='_blank'>Print</a></td><td>$referby</td><td><img src='images/Green_tick.png' /></td><td><a href='process/delete_opd.php?id=$id'>Delete</a></td>
+                echo"<tr><td><FONT SIZE='3'>$id</FONT></td><td>$l_uhid</td><td><FONT SIZE='4'>$pat_name</FONT></td><td>$age</td> <td>$address</td> <td>$fee</td>   <td>$day-$month-$year</td><td>------</td><td><a href='forms/opd-registration.php?id=$id' target='_blank'>Print</a></td><td>$referby</td><td><img src='images/Green_tick.png' /></td><td><a href='process/delete_opd.php?id=$id'>Delete</a></td>
  
 
 				  </tr>";
 				  }
 				else
 				{
-echo"<tr><td>$id</td><td>$l_uhid$pid</td><td><FONT SIZE='4'>$pat_name</FONT></td><td>$age</td> <td>$address</td><td>$fee</td>   <td>$day-$month-$year</td><td>------</td><td><a href='forms/opd-registration.php?id=$id' target='_blank'>Print</a></td><td>$referby</td><td><a href='opd-seen.php?id=$id'><img src='images/red-tick.png' /></a></td><td><a href='process/delete_opd.php?id=$id'>Delete</a></td>
+echo"<tr><td>$id</td><td>$l_uhid</td><td><FONT SIZE='4'>$pat_name</FONT></td><td>$age</td> <td>$address</td><td>$fee</td>   <td>$day-$month-$year</td><td>------</td><td><a href='forms/opd-registration.php?id=$id' target='_blank'>Print</a></td><td>$referby</td><td><a href='opd-seen.php?id=$id'><img src='images/red-tick.png' /></a></td><td><a href='process/delete_opd.php?id=$id'>Delete</a></td>
  				</tr>";
 				
 				}  
@@ -246,7 +246,7 @@ else
   if($seen == '1')
 				{
               
-  echo"<tr><td>$id</td><td>$l_uhid$pid</td><td><FONT SIZE='4'>$pat_name</FONT></td><td>$age</td> <td>$address</td><td>$fee</td>   <td>$day-$month-$year</td><td>$created_time</td><td><a href='forms/opd-registration.php?id=$id' target='_blank'>Print</a></td><td>$referby</td><td><img src='images/Green_tick.png' /></td><td><a href='process/delete_opd.php?id=$id'>Delete</a></td>
+  echo"<tr><td>$id</td><td>$l_uhid</td><td><FONT SIZE='4'>$pat_name</FONT></td><td>$age</td> <td>$address</td><td>$fee</td>   <td>$day-$month-$year</td><td>$created_time</td><td><a href='forms/opd-registration.php?id=$id' target='_blank'>Print</a></td><td>$referby</td><td><img src='images/Green_tick.png' /></td><td><a href='process/delete_opd.php?id=$id'>Delete</a></td>
  
 
 				  </tr>";
@@ -255,7 +255,7 @@ else
 				  
 				  else
 				  {
-	echo"<tr><td>$id</td><td>$l_uhid$pid</td><td><FONT SIZE='4'>$pat_name</FONT></td><td>$age</td> <td>$address</td><td>$fee</td>   <td>$day-$month-$year</td><td>$created_time</td><td><a href='forms/opd-registration.php?id=$id' target='_blank'>Print</a></td><td>$referby</td><td><a href='opd-seen.php?id=$id'><img src='images/red-tick.png' /></a></td><td><a href='process/delete_opd.php?id=$id'>Delete</a></td>
+	echo"<tr><td>$id</td><td>$l_uhid</td><td><FONT SIZE='4'>$pat_name</FONT></td><td>$age</td> <td>$address</td><td>$fee</td>   <td>$day-$month-$year</td><td>$created_time</td><td><a href='forms/opd-registration.php?id=$id' target='_blank'>Print</a></td><td>$referby</td><td><a href='opd-seen.php?id=$id'><img src='images/red-tick.png' /></a></td><td><a href='process/delete_opd.php?id=$id'>Delete</a></td>
  
 
 				  </tr>";
@@ -277,14 +277,14 @@ if($_SESSION['user_login']['email'] != 'admin')
 			{     
                 if($seen == '1')
 				{
-                echo"<tr><td>$id</td><td>$l_uhid$pid</td><td><FONT SIZE='4'>$pat_name</FONT></td><td>$age</td> <td>$address</td><td>$fee</td>   <td>$day-$month-$year</td><td>------</td><td><a href='forms/opd-registration.php?id=$id' target='_blank'>Print</a></td><td>$referby</td>
+                echo"<tr><td>$id</td><td>$l_uhid</td><td><FONT SIZE='4'>$pat_name</FONT></td><td>$age</td> <td>$address</td><td>$fee</td>   <td>$day-$month-$year</td><td>------</td><td><a href='forms/opd-registration.php?id=$id' target='_blank'>Print</a></td><td>$referby</td>
  
 
 				  </tr>";
 				  }
 				else
 				{
-echo"<tr><td>$id</td><td>$l_uhid$pid</td><td><FONT SIZE='4'>$pat_name</FONT></td><td>$age</td> <td>$address</td><td>$fee</td>   <td>$day-$month-$year</td><td>------</td><td><a href='forms/opd-registration.php?id=$id' target='_blank'>Print</a></td><td>$referby</td>
+echo"<tr><td>$id</td><td>$l_uhid</td><td><FONT SIZE='4'>$pat_name</FONT></td><td>$age</td> <td>$address</td><td>$fee</td>   <td>$day-$month-$year</td><td>------</td><td><a href='forms/opd-registration.php?id=$id' target='_blank'>Print</a></td><td>$referby</td>
  				</tr>";
 				
 				}  
@@ -294,7 +294,7 @@ else
   if($seen == '1')
 				{
               
-  echo"<tr><td>$id</td><td>$l_uhid$pid</td><td><FONT SIZE='4'>$pat_name</FONT></td><td>$age</td> <td>$address</td><td>$fee</td>   <td>$day-$month-$year</td><td>$created_time</td><td><a href='forms/opd-registration.php?id=$id' target='_blank'>Print</a></td><td>$referby</td>
+  echo"<tr><td>$id</td><td>$l_uhid</td><td><FONT SIZE='4'>$pat_name</FONT></td><td>$age</td> <td>$address</td><td>$fee</td>   <td>$day-$month-$year</td><td>$created_time</td><td><a href='forms/opd-registration.php?id=$id' target='_blank'>Print</a></td><td>$referby</td>
  
 
 				  </tr>";
@@ -303,7 +303,7 @@ else
 				  
 				  else
 				  {
-	echo"<tr><td>$id</td><td>$l_uhid$pid</td><td><FONT SIZE='4'>$pat_name</FONT></td><td>$age</td> <td>$address</td><td>$fee</td>   <td>$day-$month-$year</td><td>$created_time</td><td><a href='forms/opd-registration.php?id=$id' target='_blank'>Print</a></td><td>$referby</td>
+	echo"<tr><td>$id</td><td>$l_uhid</td><td><FONT SIZE='4'>$pat_name</FONT></td><td>$age</td> <td>$address</td><td>$fee</td>   <td>$day-$month-$year</td><td>$created_time</td><td><a href='forms/opd-registration.php?id=$id' target='_blank'>Print</a></td><td>$referby</td>
  
 
 				  </tr>";

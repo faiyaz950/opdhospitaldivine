@@ -40,7 +40,7 @@ $sq = mysql_query("select * from doctor_mst order by id asc");
 		
 			if($search != '')
 		{
-		$statement = "`opd_mst` where pid = '$search'";
+		$statement = "`opd_mst` where pid = '" . hms_uhid_pid($search) . "'";
 		}
         else
 		{

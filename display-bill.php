@@ -97,7 +97,7 @@ Phone : +91-9648506121</span>
 </tr>
 <tr>
 <td width="20%" style="font-size:12px; font-weight:bold;">UHID / PATIENT'S NAME</td>
-<td width="15%" style="font-size:12px;">DEC-<?php echo $pid; ?> / <?php echo $pinfo['pat_name']; ?></td>
+<td width="15%" style="font-size:12px;"><?php echo hms_uhid($pid); ?> / <?php echo $pinfo['pat_name']; ?></td>
 <td width="20%" style="font-size:12px; font-weight:bold;">BILL DATE</td>
 <td width="30%" style="font-size:12px;"><?php echo $date1[0]; ?></td>
 </tr>

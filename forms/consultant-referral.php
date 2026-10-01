@@ -19,7 +19,7 @@ if(!(isset($_SESSION['user_login'])))
 $c = $_REQUEST['c'];
 $sq = mysql_query("select * from patient_mst where id = '$c'");
 $pat = mysql_fetch_array($sq);
-$l_uhid = hms_uhid_prefix($pat['id']);
+$l_uhid = hms_uhid($pat['id']);
 
 ?>
 <html>
@@ -58,7 +58,7 @@ BHAUPUR, BEWAR ROAD FATEHGARH ,FARRUKHABAD-(U.P.) 209602</span>
 </div>
 <div class="pos" id="_499:288" style="top:288;left:499">
 <span id="_16.3" style=" font-family:Times New Roman; font-size:16.3px; color:#000000">
-<b>UHID:</b>&nbsp;<?php echo $l_uhid; ?><?php echo $pat['id']; ?></span>
+<b>UHID:</b>&nbsp;<?php echo $l_uhid; ?></span>
 </div>
 <div class="pos" id="_31:327" style="top:327;left:31">
 <span id="_16.3" style=" font-family:Times New Roman; font-size:16.3px; color:#000000">

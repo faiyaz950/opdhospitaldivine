@@ -17,9 +17,9 @@ if(!(isset($_SESSION['user_login'])))
     include_once ('DLL/config.php');
 	include("functions.php"); 
 	
-	$pat_id = $_POST['pat_id'];
+	$pat_id = hms_uhid_pid($_POST['pat_id']);
 
-	$l_uhid = hms_uhid_prefix($pat_id);
+	$l_uhid = hms_uhid($pat_id);
 	
 					$psq = mysql_query("select * from patient_mst where id = '$pat_id'");
 				$psq1 = mysql_fetch_array($psq);
@@ -86,7 +86,7 @@ Phone : +91-9648506121</span>
 
 <tr>
 <td width="20%" style="font-size:12px; font-weight:bold;">UHID / PATIENT'S NAME</td>
-<td width="15%" style="font-size:12px;"><?php echo $l_uhid.$pat_id; ?> / <?php echo $r1['pat_name']; ?></td>
+<td width="15%" style="font-size:12px;"><?php echo $l_uhid; ?> / <?php echo $r1['pat_name']; ?></td>
 <td width="20%" style="font-size:12px; font-weight:bold;">AGE</td><td width="30%" style="font-size:12px;"><?php echo $r1['age']; ?>&nbsp;Years&nbsp;<?php if($r1['agemonths'] != '0') { ?> - <?php echo $r1['agemonths']; ?>&nbsp;Months <?php } ?></td>
 </tr>
 <tr>

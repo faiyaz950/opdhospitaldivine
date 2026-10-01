@@ -19,7 +19,7 @@ if(!(isset($_SESSION['user_login'])))
 $c = $_REQUEST['c'];
 $sq = mysql_query("select * from patient_mst where id = '$c'");
 $pat = mysql_fetch_array($sq);
-$l_uhid = hms_uhid_prefix($pat['id']);
+$l_uhid = hms_uhid($pat['id']);
 
 ?>
 
@@ -57,7 +57,7 @@ BHAUPUR, BEWAR ROAD FATEHGARH ,FARRUKHABAD-(U.P.) 209602</span>
 <table border="1" cellpadding="10" cellspacing="0" width="100%" style="border-collapse:collapse;" align="center">
 
 <tr>
-<td width="8%" style="font-size:12px; font-weight:bold;">UHID</td><td width="15%" style="font-size:12px;"><?php echo $l_uhid; ?><?php echo $pat['id']; ?></td><td width="20%" style="font-size:12px; font-weight:bold;">NAME OF THE PATIENT</td><td width="30%" style="font-size:12px;"><?php echo $pat['pat_name']; ?></td>
+<td width="8%" style="font-size:12px; font-weight:bold;">UHID</td><td width="15%" style="font-size:12px;"><?php echo $l_uhid; ?></td><td width="20%" style="font-size:12px; font-weight:bold;">NAME OF THE PATIENT</td><td width="30%" style="font-size:12px;"><?php echo $pat['pat_name']; ?></td>
 </tr>
 <tr>
 <td width="8%" style="font-size:12px; font-weight:bold;">IPD NO.</td><td width="15%"></td><td width="20%" style="font-size:12px; font-weight:bold;">FATHER/HUSBAND's NAME</td><td width="30%" style="font-size:12px;"><?php echo $pat['fat_name']; ?></td>

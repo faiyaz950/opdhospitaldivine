@@ -19,7 +19,7 @@ if(!(isset($_SESSION['user_login'])))
 $c = $_REQUEST['c'];
 $sq = mysql_query("select * from patient_mst where id = '$c'");
 $pat = mysql_fetch_array($sq);
-$l_uhid = hms_uhid_prefix($pat['id']);
+$l_uhid = hms_uhid($pat['id']);
 
 ?>
 
@@ -59,7 +59,7 @@ BHAUPUR, BEWAR ROAD FATEHGARH ,FARRUKHABAD-(U.P.) 209602</span>
 </div>
 <div class="pos" id="_100:311" style="top:300;left:50">
 <span id="_14.8" style=" font-family:Times New Roman; font-size:14.8px; color:#000000">
-<b>UHID :</b> <?php echo $l_uhid; ?><?php echo $pat['id']; ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>NAME :</b> Mr./Mrs./Miss <?php echo $pat['pat_name']; ?></span>
+<b>UHID :</b> <?php echo $l_uhid; ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>NAME :</b> Mr./Mrs./Miss <?php echo $pat['pat_name']; ?></span>
 </div>
 <div class="pos" id="_100:346" style="top:335;left:50">
 <span id="_14.8" style=" font-family:Times New Roman; font-size:14.8px; color:#000000">

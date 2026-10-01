@@ -191,11 +191,11 @@ $sq = mysql_query("select * from patient_mst where id = '$p_id'");
 				$updated_date=$row['updated_date'];
 				
 				
-				$l_uhid = hms_uhid_prefix($id);
+				$l_uhid = hms_uhid($id);
 				
                                 
 
-                echo"<tr><td>$l_uhid$id</td> <td>$p_name</td><td>$f_name</td><td>$sex</td> <td>$age</td> <td>$address</td><td>$city</td><td>$mobile_no</td>   <td>$created_date</td><td><a href='edit-patient.php?id=$id'>Edit</a></td><td><a href='process/delete_patient.php?id=$id'>Delete</a></td>
+                echo"<tr><td>$l_uhid</td> <td>$p_name</td><td>$f_name</td><td>$sex</td> <td>$age</td> <td>$address</td><td>$city</td><td>$mobile_no</td>   <td>$created_date</td><td><a href='edit-patient.php?id=$id'>Edit</a></td><td><a href='process/delete_patient.php?id=$id'>Delete</a></td>
 
 				  </tr>";
 

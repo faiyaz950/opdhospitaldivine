@@ -176,7 +176,7 @@ $search = $_REQUEST['search'];
                 $referby = $doc_name['doc_name'];
 				
 				
-				$l_uhid = hms_uhid_prefix($pid);
+				$l_uhid = hms_uhid($pid);
 				
 				$op = mysql_query("select * from param_mst where type='opd'");
 				$op1 = mysql_fetch_array($op);
@@ -193,7 +193,7 @@ $search = $_REQUEST['search'];
 				
                                 
 
-                echo"<tr><td>$opp$id</td><td>$l_uhid$pid</td><td>$pat_name</td><td>$age</td> <td>$address</td><td>$referby</td><td>$fee</td>   <td>$created_date</td> 
+                echo"<tr><td>$opp$id</td><td>$l_uhid</td><td>$pat_name</td><td>$age</td> <td>$address</td><td>$referby</td><td>$fee</td>   <td>$created_date</td> 
 
 				  </tr>";
 

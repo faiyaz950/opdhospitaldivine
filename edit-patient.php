@@ -14,7 +14,7 @@ $refer_id = $pq['refer'];
 $refer_name = getReferDocName($refer_id);
 
 
-				$l_uhid = hms_uhid_prefix($c);
+				$l_uhid = hms_uhid($c);
 				
 				$docs = mysql_query("select * from doctor_mst order by doc_name asc");
 ?>
@@ -120,7 +120,7 @@ $refer_name = getReferDocName($refer_id);
 -->
 <tr> <td class="style8" width="40%">UHID :</td>
 
-              <td width="60%" class="style8"><?php echo $l_uhid ?><?php echo $pq['id']; ?>
+              <td width="60%" class="style8"><?php echo $l_uhid ?>
 			  
 			   </td>
 				  </tr>

@@ -38,7 +38,7 @@ $doctor =  $_REQUEST['doctor'];
 		
 			if($search != '')
 		{
-		$statement = "`outinvestigate_mst` where pid = '$search'";
+		$statement = "`outinvestigate_mst` where pid = '" . hms_uhid_pid($search) . "'";
 		}
 		elseif($doctor != '') 
 		{
@@ -194,7 +194,7 @@ echo "<th class='sortable-text'>ID</th><th class='sortable-text'>UHID</th><th cl
                 $doc_name = mysql_fetch_array($docs_list);
                 $referby = $doc_name['doc_name'];
 				
-				$l_uhid = hms_uhid_prefix($pid);
+				$l_uhid = hms_uhid($pid);
 				
 				$did=$row['rid'];
                 $dsq = mysql_query("select * from outinv_report_mst where id = '$did'");
@@ -218,7 +218,7 @@ if($_SESSION['user_login']['email'] == 'admin')
 
 				
 
-                echo"<tr><td>$id</td><td>$l_uhid$pid</td><td>$pat_name</td><td>$age</td> <td>$address</td> <td>$mobile_no</td><td>$dep_name</td><td>$rep_charges</td>   <td>$day-$month-$year</td><td>$time</td><td>$referby</td><td><a href='process/delete_outinvestigate.php?id=$id'>Delete</a></td>
+                echo"<tr><td>$id</td><td>$l_uhid</td><td>$pat_name</td><td>$age</td> <td>$address</td> <td>$mobile_no</td><td>$dep_name</td><td>$rep_charges</td>   <td>$day-$month-$year</td><td>$time</td><td>$referby</td><td><a href='process/delete_outinvestigate.php?id=$id'>Delete</a></td>
 
 				  </tr>";
 
@@ -230,7 +230,7 @@ if($_SESSION['user_login']['email'] != 'admin')
 {
 				
 				
-                echo"<tr><td>$id</td><td>$l_uhid$pid</td><td>$pat_name</td><td>$age</td> <td>$address</td> <td>$mobile_no</td><td>$dep_name</td><td>$rep_charges</td>   <td>$day-$month-$year</td><td>$time</td>
+                echo"<tr><td>$id</td><td>$l_uhid</td><td>$pat_name</td><td>$age</td> <td>$address</td> <td>$mobile_no</td><td>$dep_name</td><td>$rep_charges</td>   <td>$day-$month-$year</td><td>$time</td>
 				  </tr>";
 				 
 				 }

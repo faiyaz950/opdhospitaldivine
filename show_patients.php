@@ -37,7 +37,7 @@ $search = $_REQUEST['search'];
 		if($search != '')
 		{
 		//$statement = "`patient_mst` where id like '%$search%' or pat_name like '%$search%' or fat_name like '%$search%' or city like '%$search%' or mobile_no like '%$search%'";
-		$statement = "`patient_mst` where pat_name like '%$search%' or id like '%$search%'";
+		$statement = "`patient_mst` where pat_name like '%$search%' or id like '%$search%' or id = '" . hms_uhid_pid($search) . "'";
 		}
 		else
 		{
@@ -182,20 +182,20 @@ $year = $cr_date[0];
 				$updated_date=$row['updated_date'];
 				
 				
-				$l_uhid = hms_uhid_prefix($id);
+				$l_uhid = hms_uhid($id);
 
 if($time == '00:00:00')
 			{	
                                 
 
-                echo"<tr><td>$l_uhid$id</td> <td>$p_name</td><td>$sex</td> <td>$age Years $agemonths Months</td> <td>$address</td><td>$mobile_no</td>   <td>$day-$month-$year</td><td>------</td><td><a href='add-opd.php?id=$l_uhid$id'>Create OPD</a></td><td><a href='add-investigate.php?id=$l_uhid$id'>Investigation</a></td><td><a href='add-out-investigate.php?id=$l_uhid$id'>OutInv</a></td><td><a href='add-ipd1.php?id=$l_uhid$id'>IPD</a></td><td><a href='edit-patient.php?id=$id'>Edit</a></td>
+                echo"<tr><td>$l_uhid</td> <td>$p_name</td><td>$sex</td> <td>$age Years $agemonths Months</td> <td>$address</td><td>$mobile_no</td>   <td>$day-$month-$year</td><td>------</td><td><a href='add-opd.php?id=$l_uhid'>Create OPD</a></td><td><a href='add-investigate.php?id=$l_uhid'>Investigation</a></td><td><a href='add-out-investigate.php?id=$l_uhid'>OutInv</a></td><td><a href='add-ipd1.php?id=$l_uhid'>IPD</a></td><td><a href='edit-patient.php?id=$id'>Edit</a></td>
 
 				  </tr>";
 }
 else
 {
 
-                echo"<tr><td>$l_uhid$id</td> <td>$p_name</td><td>$sex</td> <td>$age Years $agemonths Months</td> <td>$address</td><td>$mobile_no</td>   <td>$day-$month-$year</td><td>$time</td><td><a href='add-opd.php?id=$l_uhid$id'>Create OPD</a></td><td><a href='add-investigate.php?id=$l_uhid$id'>Investigation</a></td><td><a href='add-out-investigate.php?id=$l_uhid$id'>OutInv</a></td><td><a href='add-ipd1.php?id=$l_uhid$id'>IPD</a></td><td><a href='edit-patient.php?id=$id'>Edit</a></td>
+                echo"<tr><td>$l_uhid</td> <td>$p_name</td><td>$sex</td> <td>$age Years $agemonths Months</td> <td>$address</td><td>$mobile_no</td>   <td>$day-$month-$year</td><td>$time</td><td><a href='add-opd.php?id=$l_uhid'>Create OPD</a></td><td><a href='add-investigate.php?id=$l_uhid'>Investigation</a></td><td><a href='add-out-investigate.php?id=$l_uhid'>OutInv</a></td><td><a href='add-ipd1.php?id=$l_uhid'>IPD</a></td><td><a href='edit-patient.php?id=$id'>Edit</a></td>
 
 				  </tr>";
 }

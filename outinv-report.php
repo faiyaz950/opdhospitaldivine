@@ -40,7 +40,7 @@ $search = $_REQUEST['search'];
 		
 			if($search != '')
 		{
-		$statement = "`opd_mst` where pid = '$search'";
+		$statement = "`opd_mst` where pid = '" . hms_uhid_pid($search) . "'";
 		}
         else
 		{
