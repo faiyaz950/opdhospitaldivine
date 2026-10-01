@@ -78,7 +78,7 @@ body { font-family: Arial; font-size: 17.5px }
 <td width="8%" style="font-size:14px; font-weight:bold;">OPID</td><td width="15%" style="font-size:14px;"><?php echo $pat['id']; ?></td><td width="20%" style="font-size:14px; font-weight:bold;">ADDRESS</td><td width="30%" style="font-size:14px;"><?php echo $address; ?></td>
 </tr>
 <tr>
-<td width="8%" style="font-size:14px; font-weight:bold;">AGE / SEX</td><td width="15%" style="font-size:14px;"><?php echo (int) $age; ?>&nbsp;Yrs <?php echo (int) $agemonths; ?>&nbsp;Mts / <?php echo $m; ?></td><td width="20%" style="font-size:14px; font-weight:bold;">VALIDITY </td><td width="30%" style="font-size:14px;"><?php echo $cd[2]; ?>-<?php echo $cd[1]; ?>-<?php echo $cd[0]; ?> &nbsp;&nbsp;&nbsp;&nbsp;<b>To</b>&nbsp;&nbsp;&nbsp;&nbsp; <?php echo $dd[2]; ?>-<?php echo $dd[1]; ?>-<?php echo $dd[0]; ?> </td>
+<td width="8%" style="font-size:14px; font-weight:bold;">AGE</td><td width="15%" style="font-size:14px;"><?php echo (int) $age; ?>&nbsp;Yrs <?php echo (int) $agemonths; ?>&nbsp;Mts</td><td width="20%" style="font-size:14px; font-weight:bold;">VALIDITY </td><td width="30%" style="font-size:14px;"><?php echo $cd[2]; ?>-<?php echo $cd[1]; ?>-<?php echo $cd[0]; ?> &nbsp;&nbsp;&nbsp;&nbsp;<b>To</b>&nbsp;&nbsp;&nbsp;&nbsp; <?php echo $dd[2]; ?>-<?php echo $dd[1]; ?>-<?php echo $dd[0]; ?> </td>
 </tr>
 <tr>
 <td width="8%" style="font-size:14px; font-weight:bold;">WEIGHT</td><td width="15%" style="font-size:14px;"></td><td width="20%" style="font-size:14px; font-weight:bold;">BP</td><td width="30%" style="font-size:14px;"></td>
