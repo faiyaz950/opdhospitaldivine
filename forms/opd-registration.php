@@ -57,10 +57,10 @@ $pid=$pat['pid'];
 @page { size: A4; margin: 0; }
 body { font-family: Arial; margin: 0; }
 .slip { padding-top: 8cm; }
-.slip table { width: 16cm; margin: 0 auto; border-collapse: collapse; table-layout: fixed; }
-.slip tr { height: 1.33cm; }
+.slip table { width: 15cm; margin-left: 4cm; border-collapse: collapse; table-layout: fixed; }
+.slip tr { height: 1.2cm; }
 .nowrap { white-space: nowrap; }
-.slip td { border: 1px solid #000; padding: 0 6px; font-size: 13px; vertical-align: middle; word-wrap: break-word; }
+.slip td { border: 1px solid #000; padding: 0 5px; font-size: 12px; vertical-align: middle; word-wrap: break-word; }
 .slip td.lbl { font-weight: bold; }
 </style>
 </head>
@@ -68,24 +68,24 @@ body { font-family: Arial; margin: 0; }
 <div class="slip">
 <table>
 <colgroup>
-<col style="width:2.3cm"><col style="width:3.1cm">
-<col style="width:2.2cm"><col style="width:2.9cm">
-<col style="width:2cm"><col style="width:3.5cm">
+<col style="width:2cm"><col style="width:3cm">
+<col style="width:2.2cm"><col style="width:2.6cm">
+<col style="width:2.2cm"><col style="width:3cm">
 </colgroup>
 <tr>
 <td class="lbl">UHID</td><td><?php echo $l_uhid; ?></td>
 <td class="lbl">OPID</td><td><?php echo $pat['id']; ?></td>
-<td class="lbl">NAME</td><td><?php echo $pat_name; ?></td>
-</tr>
-<tr>
-<td class="lbl">AGE / SEX</td><td><?php echo (int) $age; ?> Yrs <?php echo (int) $agemonths; ?> Mts / <?php echo $m; ?></td>
-<td class="lbl">ADDRESS</td><td><?php echo $address; ?></td>
 <td class="lbl">PMJAY</td><td><?php echo $pmjay; ?></td>
 </tr>
 <tr>
+<td class="lbl">NAME</td><td><?php echo $pat_name; ?></td>
+<td class="lbl">AGE / SEX</td><td><?php echo (int) $age; ?> Yrs <?php echo (int) $agemonths; ?> Mts / <?php echo $m; ?></td>
+<td class="lbl">ADDRESS</td><td><?php echo $address; ?></td>
+</tr>
+<tr>
 <td class="lbl">VALIDITY</td><td><span class="nowrap"><?php echo $cd[2]; ?>-<?php echo $cd[1]; ?>-<?php echo $cd[0]; ?></span> to <span class="nowrap"><?php echo $dd[2]; ?>-<?php echo $dd[1]; ?>-<?php echo $dd[0]; ?></span></td>
-<td class="lbl">WEIGHT</td><td></td>
-<td class="lbl">B.P.</td><td></td>
+<td class="lbl">WEIGHT / B.P.</td><td></td>
+<td class="lbl">ADDICTION</td><td></td>
 </tr>
 </table>
 </div>
