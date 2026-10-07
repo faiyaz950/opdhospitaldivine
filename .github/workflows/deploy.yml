@@ -25,15 +25,25 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
-          ssh-keyscan -p "$SSH_PORT" -H "$SSH_HOST" >> ~/.ssh/known_hosts
+          # The host drops bursts of connections, so scan one key type and retry.
+          for i in 1 2 3 4 5; do
+            ssh-keyscan -t ed25519 -p "$SSH_PORT" -H "$SSH_HOST" > /tmp/host_key 2>/dev/null || true
+            if [ -s /tmp/host_key ]; then cat /tmp/host_key >> ~/.ssh/known_hosts; break; fi
+            sleep $((i * 5))
+          done
+          [ -s /tmp/host_key ] || { echo "ssh-keyscan failed"; exit 1; }
 
       # No --delete: config.local.php and any server-only files must survive deploys.
       - name: Upload files
         run: |
-          rsync -az \
-            --exclude '.git' \
-            --exclude '.github' \
-            --exclude '.gitignore' \
-            --exclude 'DLL/config.local.php' \
-            -e "ssh -i ~/.ssh/deploy_key -p $SSH_PORT" \
-            ./ "$SSH_USER@$SSH_HOST:$DEPLOY_PATH/"
+          for i in 1 2 3 4 5; do
+            rsync -az \
+              --exclude '.git' \
+              --exclude '.github' \
+              --exclude '.gitignore' \
+              --exclude 'DLL/config.local.php' \
+              -e "ssh -i ~/.ssh/deploy_key -p $SSH_PORT" \
+              ./ "$SSH_USER@$SSH_HOST:$DEPLOY_PATH/" && exit 0
+            sleep $((i * 5))
+          done
+          exit 1
