@@ -1751,3 +1751,22 @@ body.hms-auth {
         max-width: 360px;
     }
 }
+
+/* Seen status: countdown before the update is sent */
+a.hms-seen-pending img {
+    display: none;
+}
+
+.hms-seen-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #f59e0b;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}

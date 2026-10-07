@@ -217,6 +217,48 @@
         });
     }
 
+    var SEEN_DELAY = 3;
+
+    function delaySeen(event) {
+        var link = event.target.closest && event.target.closest('a[href*="-seen"]');
+        if (!link || !/(opd|investigate|ipd)-seen\d*\.php\?/.test(link.getAttribute('href'))) {
+            return;
+        }
+        event.preventDefault();
+        if (link.hmsSeenDone) {
+            return;
+        }
+
+        if (link.hmsSeenTimer) {
+            clearInterval(link.hmsSeenTimer);
+            link.hmsSeenTimer = null;
+            link.classList.remove('hms-seen-pending');
+            link.removeChild(link.querySelector('.hms-seen-count'));
+            link.title = '';
+            return;
+        }
+
+        var left = SEEN_DELAY;
+        var count = document.createElement('span');
+        count.className = 'hms-seen-count';
+        count.textContent = left;
+        link.appendChild(count);
+        link.classList.add('hms-seen-pending');
+        link.title = 'Click again to cancel';
+        link.hmsSeenTimer = setInterval(function () {
+            left -= 1;
+            if (left > 0) {
+                count.textContent = left;
+                return;
+            }
+            clearInterval(link.hmsSeenTimer);
+            link.hmsSeenDone = true;
+            window.location.href = link.href;
+        }, 1000);
+    }
+
+    document.addEventListener('click', delaySeen);
+
     document.addEventListener('DOMContentLoaded', function () {
         highlightNavigation();
         each('#page-wrapper table.rowstyle-alt', compactTable);
