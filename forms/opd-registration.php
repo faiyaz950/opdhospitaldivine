@@ -28,14 +28,7 @@ $pid=$pat['pid'];
 				$age = $psq1['age'];
                                 $agemonths = $psq1['agemonths'];
 				$sex = $psq1['sex'];
-                                if($sex == 'Male')
-                                {
-                                $m = 'M';
-                                }
-                                elseif($sex == 'Female')
-                                {
-                                $m = 'F';
-                                }
+				$m = strtoupper(substr(trim($sex), 0, 1));
 				$city = $psq1['city'];
 				$mobile_no = $psq1['mobile_no'];
 				$address = $psq1['address'];
