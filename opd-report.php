@@ -118,7 +118,7 @@ $sq = mysql_query("select * from doctor_mst order by id asc");
                               </h1>
                         <ol class="breadcrumb">
                             <li>
-                              <div align="center"><form method="post" action="opd-report1.php"><strong>From Date : </strong> <input type="text" name="from_date" value="<?php echo date("Y-m-d"); ?>">&nbsp;&nbsp;<strong>To Date : </strong> <input type="text" name="to_date" value="<?php echo date("Y-m-d"); ?>">&nbsp;&nbsp;<strong>Doctor : </strong><select name="report">
+                              <div align="center"><form method="post" action="opd-report1.php"><strong>From Date : </strong> <input type="text" name="from_date" value="<?php echo date("Y-m-d"); ?>">&nbsp;&nbsp;<strong>To Date : </strong> <input type="text" name="to_date" value="<?php echo date("Y-m-d"); ?>">&nbsp;&nbsp;<strong>From Time : </strong> <input type="time" name="from_time" value="00:00">&nbsp;&nbsp;<strong>To Time : </strong> <input type="time" name="to_time" value="23:59">&nbsp;&nbsp;<strong>Doctor : </strong><select name="report">
                <option value="0">All Doctors</option>
 			  <?php
 			  while($pq = mysql_fetch_array($sq))

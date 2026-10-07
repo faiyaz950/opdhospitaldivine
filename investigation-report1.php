@@ -38,20 +38,23 @@ $search = $_REQUEST['search'];
 		
 		$from_date = $_POST['from_date'];
 		$to_date = $_POST['to_date'];
+		$from_time = preg_match('/^\d{2}:\d{2}$/', $_POST['from_time']) ? $_POST['from_time'] : '00:00';
+		$to_time = preg_match('/^\d{2}:\d{2}$/', $_POST['to_time']) ? $_POST['to_time'] : '23:59';
+		$range = "created_datetime >= '$from_date $from_time:00' and created_datetime <= '$to_date $to_time:59'";
 		$report = $_POST['report'];
 		$doctor = $_POST['doctor'];
 		
         if($report != '0')
 		{
-		$statement = "`investigate_mst` where created_date >= '$from_date' and created_date <= '$to_date' and rid='$report'";
+		$statement = "`investigate_mst` where $range and rid='$report'";
 		}
 		elseif($doctor != '0')
 		{
-		$statement = "`investigate_mst` where created_date >= '$from_date' and created_date <= '$to_date' and refer='$doctor'";
+		$statement = "`investigate_mst` where $range and refer='$doctor'";
 		}
 		else
 		{
-		$statement = "`investigate_mst` where created_date >= '$from_date' and created_date <= '$to_date'";
+		$statement = "`investigate_mst` where $range";
 		
 		}
 
@@ -123,7 +126,7 @@ $search = $_REQUEST['search'];
                      <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Investigation Report (From Date : <?php echo $from_date; ?> to <?php echo $to_date; ?>)
+                            Investigation Report (From : <?php echo $from_date . ' ' . $from_time; ?> hrs to <?php echo $to_date . ' ' . $to_time; ?> hrs)
                             </h1>
                         <ol class="breadcrumb">
                             <li class="active">
@@ -184,7 +187,7 @@ $search = $_REQUEST['search'];
 				$psq1 = mysql_fetch_array($dsq);
 				$dep_name = $psq1['rep_name'];
 				$rep_charges = $psq1['rate'];
-				$created_date=$row['created_date'];
+				$created_date=$row['created_datetime'];
 				
 				
                  $total = $total + $rep_charges;         
