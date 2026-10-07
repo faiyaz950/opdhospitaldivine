@@ -61,33 +61,40 @@ $pid=$pat['pid'];
 <head>
 <title>OPD REGISTRATION FORM </title>
 <style type="text/css">
-<!--
-body { font-family: Arial; font-size: 17.5px }
-.pos { position: absolute; z-index: 0; left: 0px; top: 0px }
--->
+@page { size: A4; margin: 0; }
+body { font-family: Arial; margin: 0; }
+.slip { padding-top: 8cm; }
+.slip table { width: 16cm; margin: 0 auto; border-collapse: collapse; table-layout: fixed; }
+.slip tr { height: 1.33cm; }
+.nowrap { white-space: nowrap; }
+.slip td { border: 1px solid #000; padding: 0 6px; font-size: 13px; vertical-align: middle; word-wrap: break-word; }
+.slip td.lbl { font-weight: bold; }
 </style>
 </head>
 <body>
-<div style="padding-top:270px; padding-left:200px;">
-<table border="1" cellpadding="10" cellspacing="0" style="border-collapse:collapse; width:630px;">
-
+<div class="slip">
+<table>
+<colgroup>
+<col style="width:2.3cm"><col style="width:3.1cm">
+<col style="width:2.2cm"><col style="width:2.9cm">
+<col style="width:2cm"><col style="width:3.5cm">
+</colgroup>
 <tr>
-<td width="8%" style="font-size:14px; font-weight:bold;">UHID</td><td width="15%" style="font-size:14px;"><?php echo $l_uhid; ?></td><td width="20%" style="font-size:14px; font-weight:bold;">NAME OF THE PATIENT</td><td width="30%" style="font-size:14px;"><?php echo $pat_name; ?></td>
+<td class="lbl">UHID</td><td><?php echo $l_uhid; ?></td>
+<td class="lbl">OPID</td><td><?php echo $pat['id']; ?></td>
+<td class="lbl">NAME</td><td><?php echo $pat_name; ?></td>
 </tr>
 <tr>
-<td width="8%" style="font-size:14px; font-weight:bold;">OPID</td><td width="15%" style="font-size:14px;"><?php echo $pat['id']; ?></td><td width="20%" style="font-size:14px; font-weight:bold;">ADDRESS</td><td width="30%" style="font-size:14px;"><?php echo $address; ?></td>
+<td class="lbl">AGE / SEX</td><td><?php echo (int) $age; ?> Yrs <?php echo (int) $agemonths; ?> Mts / <?php echo $m; ?></td>
+<td class="lbl">ADDRESS</td><td><?php echo $address; ?></td>
+<td class="lbl">PMJAY</td><td><?php echo $pmjay; ?></td>
 </tr>
 <tr>
-<td width="8%" style="font-size:14px; font-weight:bold;">AGE</td><td width="15%" style="font-size:14px;"><?php echo (int) $age; ?>&nbsp;Yrs <?php echo (int) $agemonths; ?>&nbsp;Mts</td><td width="20%" style="font-size:14px; font-weight:bold;">VALIDITY </td><td width="30%" style="font-size:14px;"><?php echo $cd[2]; ?>-<?php echo $cd[1]; ?>-<?php echo $cd[0]; ?> &nbsp;&nbsp;&nbsp;&nbsp;<b>To</b>&nbsp;&nbsp;&nbsp;&nbsp; <?php echo $dd[2]; ?>-<?php echo $dd[1]; ?>-<?php echo $dd[0]; ?> </td>
-</tr>
-<tr>
-<td width="8%" style="font-size:14px; font-weight:bold;">WEIGHT</td><td width="15%" style="font-size:14px;"></td><td width="20%" style="font-size:14px; font-weight:bold;">BP</td><td width="30%" style="font-size:14px;"></td>
-</tr>
-<tr>
-<td width="8%" style="font-size:14px; font-weight:bold;">PMJAY</td><td colspan="3" style="font-size:14px;"><?php echo $pmjay; ?></td>
+<td class="lbl">VALIDITY</td><td><span class="nowrap"><?php echo $cd[2]; ?>-<?php echo $cd[1]; ?>-<?php echo $cd[0]; ?></span> to <span class="nowrap"><?php echo $dd[2]; ?>-<?php echo $dd[1]; ?>-<?php echo $dd[0]; ?></span></td>
+<td class="lbl">WEIGHT</td><td></td>
+<td class="lbl">B.P.</td><td></td>
 </tr>
 </table>
 </div>
-<br />
 </body>
 </html>
