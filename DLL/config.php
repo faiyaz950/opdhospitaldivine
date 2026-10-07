@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/mysql_compat.php';
+date_default_timezone_set('Asia/Kolkata');
 
 $host = "localhost";
 $username = "root";

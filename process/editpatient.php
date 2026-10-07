@@ -16,7 +16,7 @@ $pmjay = isset($_POST['pmjay']) ? $_POST['pmjay'] : '';
 if ($pmjay != 'Yes' && $pmjay != 'No') {
 header("Location: ../edit-patient.php?id=$id");die;
 }
-$date = date("Y-m-d h:m:s");
+$date = date("Y-m-d H:i:s");
 $sql = mysql_query("update patient_mst set pat_name='$pat_name', fat_name='$fat_name', sex='$sex', address='$address', mobile_no='$mobile_no', age='$age', agemonths='$agemonths', remarks='$remarks', refer='$refer', pmjay='$pmjay', updated_date='$date' where id='$id'");
 if($sql)
 {

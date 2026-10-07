@@ -4,7 +4,7 @@ if(isset($_POST['submit']))
 {
 $rep_name=$_POST['rep_name'];
 $rate = $_POST['rate'];
-$date = date("Y-m-d h:m:s");
+$date = date("Y-m-d H:i:s");
 $sql = mysql_query("insert into outinv_report_mst(rep_name,rate,created_date) values ('$rep_name','$rate','$date')");
 if($sql)
 {

@@ -14,7 +14,7 @@ $refer_id = $pq['refer'];
 $rep_id = $_POST['department'];
 $date = date("Y-m-d");
 $time = date("H:i:s", time());
-$datetime = date("Y-m-d h:m:s");
+$datetime = date("Y-m-d H:i:s");
 $sql = mysql_query("insert into outinvestigate_mst(pid,rid,created_date,created_time,created_datetime,refer) values ('$p_id','$rep_id','$date','$time','$datetime','$refer_id')");
 if($sql)
 {

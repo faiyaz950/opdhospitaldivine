@@ -14,7 +14,7 @@ $pmjay = isset($_POST['pmjay']) ? $_POST['pmjay'] : '';
 if ($pmjay != 'Yes' && $pmjay != 'No') {
 header("Location: ../add-patient.php");die;
 }
-$date = date("Y-m-d h:m:s");
+$date = date("Y-m-d H:i:s");
 $time = date("H:i:s", time());
 $sql = mysql_query("insert into patient_mst(pat_name,fat_name,sex,address,mobile_no,age,agemonths,refer,pmjay,created_date,created_time,updated_date) values ('$pat_name','$fat_name','$sex','$address','$mobile_no','$age', '$agemonths',  '$refer', '$pmjay', '$date','$time','$date')");
 if($sql)
