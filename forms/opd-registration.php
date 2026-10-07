@@ -57,7 +57,7 @@ $pid=$pat['pid'];
 @page { size: A4; margin: 0; }
 body { font-family: Arial; margin: 0; }
 .slip { padding-top: 8cm; }
-.slip table { width: 15cm; margin-left: 4cm; border-collapse: collapse; table-layout: fixed; }
+.slip table { width: 15cm; margin-left: 5cm; border-collapse: collapse; table-layout: fixed; }
 .slip tr { height: 1.2cm; }
 .nowrap { white-space: nowrap; }
 .slip td { border: 1px solid #000; padding: 0 5px; font-size: 12px; vertical-align: middle; word-wrap: break-word; }
