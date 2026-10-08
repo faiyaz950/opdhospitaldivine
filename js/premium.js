@@ -253,8 +253,27 @@
             }
             clearInterval(link.hmsSeenTimer);
             link.hmsSeenDone = true;
-            window.location.href = link.href;
+            count.textContent = '…';
+            markSeen(link);
         }, 1000);
+    }
+
+    // Sent in the background so several dots can count down and update at once.
+    function markSeen(link) {
+        if (!window.fetch) {
+            window.location.href = link.href;
+            return;
+        }
+        fetch(link.href, { credentials: 'same-origin' }).then(function (res) {
+            if (!res.ok || /\/index\.php$/.test(res.url)) {
+                throw new Error('not saved');
+            }
+            var tick = document.createElement('img');
+            tick.src = 'images/Green_tick.png';
+            link.parentNode.replaceChild(tick, link);
+        }).catch(function () {
+            window.location.href = link.href;
+        });
     }
 
     document.addEventListener('click', delaySeen);
