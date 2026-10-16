@@ -151,7 +151,7 @@ $search = $_REQUEST['search'];
 
                 echo "<tr>";
 
-                echo "<th class='sortable-text'>UHID</th><th class='sortable-text'>Patient Name</th><th class='sortable-text'>Age</th><th class='sortable-text'>Address</th><th class='sortable-text'>Mobile No.</th><th>Report Name</th><th class='sortable-text'>Report Charges</th><th class='sortable-text'>Date</th><th>Doctor</th>";
+                echo "<th class='sortable-text'>UHID</th><th class='sortable-text'>Patient Name</th><th class='sortable-text'>Age</th><th class='sortable-text'>Address</th><th class='sortable-text'>Mobile No.</th><th>Report Name</th><th class='sortable-text'>Report Charges</th><th class='sortable-text'>Admission Date</th><th class='sortable-text'>Discharge Status</th><th>Doctor</th>";
 
                 echo "</tr>";
 
@@ -185,10 +185,13 @@ $search = $_REQUEST['search'];
 				$rep_charges = $psq1['rate'];
 				$created_date=$row['created_date'];
 				
+				$dis_status = (int)$row['discharge_status'];
+				$dis_label = ($dis_status == 1 && $row['discharge_date']) ? ("<span class='label label-default'>Discharged: " . date('d-m-Y', strtotime($row['discharge_date'])) . "</span>") : "<span class='label label-success'>Admitted</span>";
+
 				$total = $total + $rep_charges; 
                                 
 
-                echo"<tr><td>$l_uhid</td><td>$pat_name</td><td>$age</td> <td>$address</td> <td>$mobile_no</td><td>$dep_name</td><td>$rep_charges</td>   <td>$created_date</td><td>$referby</td> 
+                echo"<tr><td>$l_uhid</td><td>$pat_name</td><td>$age</td> <td>$address</td> <td>$mobile_no</td><td>$dep_name</td><td>$rep_charges</td>   <td>$created_date</td><td>$dis_label</td><td>$referby</td> 
 
 				  </tr>";
 

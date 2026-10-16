@@ -24,4 +24,7 @@ if (!$db) {
 
 mysql_set_charset('utf8', $con);
 require_once __DIR__ . '/uhid.php';
+require_once __DIR__ . '/schema.php';
+hms_ensure_schema();
 $site_name = "Divine Centre";
+

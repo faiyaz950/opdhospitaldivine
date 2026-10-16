@@ -171,11 +171,25 @@ $refer_name = getReferDocName($refer_id);
                  <textarea name="remarks" rows="5" cols="30"><?php echo $pq['remarks']; ?></textarea>
 				  </td></tr>
                   
+                  <tr> <td class="style8">Registration Date :</td>
+              <td>
+                 <input type="date" name="reg_date" value="<?php echo date('Y-m-d', strtotime($pq['created_date'])); ?>" style="width:160px;">
+                 &nbsp;&nbsp;
+                 <input type="time" name="reg_time" value="<?php echo date('H:i', strtotime($pq['created_time'] ?: $pq['created_date'])); ?>" style="width:110px;">
+                 <br><span style="font-size:11px; color:#888;">(Backdate allowed)</span>
+				  </td></tr>
                   <tr> <td class="style8">Doctor :</td>
               <td>
                 <select name="refer">
                 <option value="<?php echo $refer_id; ?>"><?php echo $refer_name; ?></option>
-               
+                <?php
+                while($doc = mysql_fetch_array($docs)) {
+                    if ($doc['id'] != $refer_id) {
+                        echo '<option value="' . $doc['id'] . '">' . htmlspecialchars($doc['doc_name']) . '</option>';
+                    }
+                }
+                ?>
+                </select>
 				  </td></tr>
 
 

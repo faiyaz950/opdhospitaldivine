@@ -197,6 +197,9 @@ echo "<th class='sortable-text'>ID</th><th class='sortable-text'>UHID</th><th cl
                 $dsq = mysql_query("select * from report_mst where id = '$did'");
 				$psq1 = mysql_fetch_array($dsq);
 				$dep_name = $psq1['rep_name'];
+				if ($row['inv_type'] == 'Indoor' || (int)$row['ipd_id'] > 0) {
+				    $dep_name .= " <span class='label label-info' style='font-size:10px;'>Indoor</span>";
+				}
 				$rep_charges = $psq1['rate'];
 				$created_date=$row['created_date'];
 $created_datetime=$row['created_datetime'];

@@ -3,115 +3,183 @@ error_reporting(0);
 session_start();
 
 if(!(isset($_SESSION['user_login'])))
-
 {
-
 	$_SESSION["error_msg"]="Please Login";
-
 	header("Location: index.php");die;
-
 }
 
-    //connect to the database
+//connect to the database
+include_once ('../DLL/config.php'); 
 
-    include_once ('../DLL/config.php'); 
+$c = (int)$_REQUEST['c'];
+$req_ipd_id = isset($_REQUEST['ipd_id']) ? (int)$_REQUEST['ipd_id'] : 0;
 
-$c = $_REQUEST['c'];
 $sq = mysql_query("select * from patient_mst where id = '$c'");
 $pat = mysql_fetch_array($sq);
+if (!$pat && $req_ipd_id > 0) {
+    $temp_ipd = mysql_fetch_array(mysql_query("select * from patipd_mst where id = '$req_ipd_id'"));
+    if ($temp_ipd) {
+        $c = (int)$temp_ipd['pid'];
+        $sq = mysql_query("select * from patient_mst where id = '$c'");
+        $pat = mysql_fetch_array($sq);
+    }
+}
 $l_uhid = hms_uhid($pat['id']);
 
+// IPD Details
+$ipd_row = null;
+if ($req_ipd_id > 0) {
+    $ipd_q = mysql_query("select * from patipd_mst where id = '$req_ipd_id'");
+    $ipd_row = mysql_fetch_array($ipd_q);
+}
+if (!$ipd_row && $c > 0) {
+    $ipd_q = mysql_query("select * from patipd_mst where pid = '$c' order by id desc limit 1");
+    $ipd_row = mysql_fetch_array($ipd_q);
+}
+
+$ipd_number = $ipd_row ? $ipd_row['id'] : '';
+$doa = ($ipd_row && $ipd_row['created_date']) ? date('d-m-Y', strtotime($ipd_row['created_date'])) : '';
+$dod = ($ipd_row && $ipd_row['discharge_date']) ? date('d-m-Y', strtotime($ipd_row['discharge_date'])) : '';
+
+$refer_id = ($ipd_row && $ipd_row['refer']) ? $ipd_row['refer'] : $pat['refer'];
+$docs_list = mysql_query("select * from doctor_mst where id='$refer_id'");
+$doc_name = mysql_fetch_array($docs_list);
+$referby = $doc_name['doc_name'] ?: '';
+
+$dep_name = '';
+if ($ipd_row && $ipd_row['rid']) {
+    $did = $ipd_row['rid'];
+    $dsq = mysql_query("select * from ipd_mst where id = '$did'");
+    $dp = mysql_fetch_array($dsq);
+    $dep_name = $dp['rep_name'] ?: '';
+}
+
+// Investigations during stay
+$inv_list = array();
+if ($ipd_row) {
+    $ipd_cur_id = $ipd_row['id'];
+    $inv_q = mysql_query("select i.*, r.rep_name from investigate_mst i left join report_mst r on i.rid = r.id where (i.ipd_id = '$ipd_cur_id' or (i.pid = '$c' and i.inv_type = 'Indoor')) order by i.id asc");
+    while ($inv_q && ($inv_r = mysql_fetch_array($inv_q))) {
+        $inv_date_fmt = date('d-m-Y', strtotime($inv_r['created_date']));
+        $inv_list[] = htmlspecialchars($inv_r['rep_name']) . " (" . $inv_date_fmt . ")";
+    }
+}
 ?>
 <html>
 <head>
-<title>Discharge Summary</title>
+<title>Discharge Summary - <?php echo $pat['pat_name']; ?></title>
 <style type="text/css">
-<!--
-body { font-family: Arial; font-size: 23.7px }
-.pos { position: absolute; z-index: 0; left: 0px; top: 0px }
--->
+body { font-family: Arial, sans-serif; font-size: 13px; color: #111; margin: 20px; }
+table { border-collapse: collapse; width: 100%; }
+.meta-table td { padding: 6px 8px; font-size: 12px; }
+.section-title { font-weight: bold; font-size: 13px; text-decoration: underline; margin-top: 14px; margin-bottom: 4px; color: #000; }
+.section-content { font-size: 13px; padding-left: 10px; min-height: 20px; line-height: 1.5; }
+@media print {
+    .no-print { display: none; }
+}
 </style>
 </head>
 <body>
-<table>
-<tr>
-<td>
-<img src="logo.png" />
-</td>
-<td align="center"><span id="_24.1" style="font-weight:bold; font-family:Times New Roman; font-size:24.1px; color:#000000">SHRI BABU SINGH JAY SINGH AYURVEDIC</span><br />
-<span id="_24.1" style="font-weight:bold; font-family:Times New Roman; font-size:24.1px; color:#000000">
-MEDICAL COLLEGE & HOSPITAL</span>
-</div><br />
-<span id="_12.1" style="font-weight:bold; font-family:Times New Roman; font-size:12.1px; color:#000000">
-BHAUPUR, BEWAR ROAD FATEHGARH ,FARRUKHABAD-(U.P.) 209602</span>
+
+<div class="no-print" style="margin-bottom:15px; text-align:right;">
+    <button onclick="window.print();" style="padding:6px 16px; font-size:14px; cursor:pointer; background:#00a2e8; color:#fff; border:none; border-radius:4px; font-weight:bold;">Print Discharge Summary</button>
 </div>
+
+<table align="center">
+<tr>
+<td width="15%" align="left">
+<img src="logo.png" style="max-height:80px;" />
+</td>
+<td align="center">
+<span style="font-weight:bold; font-family:'Times New Roman', serif; font-size:22px; color:#000000">SHRI BABU SINGH JAY SINGH AYURVEDIC</span><br />
+<span style="font-weight:bold; font-family:'Times New Roman', serif; font-size:22px; color:#000000">MEDICAL COLLEGE &amp; HOSPITAL</span><br />
+<span style="font-weight:bold; font-family:'Times New Roman', serif; font-size:12px; color:#000000">BHAUPUR, BEWAR ROAD FATEHGARH, FARRUKHABAD-(U.P.) 209602</span>
 </td>
 </tr>
 </table>
-<hr color="#000000">
-<br />
-<div align="center" style="font-size:16px;"><STRONG><u>DISCHARGE SUMMARY</u></STRONG>
-</div>
-<br />
-<table border="1" cellpadding="10" cellspacing="0" width="100%" style="border-collapse:collapse;" align="center">
 
-<tr>
-<td width="8%" style="font-size:12px; font-weight:bold;">UHID</td><td width="15%" style="font-size:12px;"><?php echo $l_uhid; ?></td><td width="20%" style="font-size:12px; font-weight:bold;">NAME OF THE PATIENT</td><td width="30%" style="font-size:12px;"><?php echo $pat['pat_name']; ?><td width="8%" style="font-size:12px; font-weight:bold;">AGE</td><td width="15%" style="font-size:12px;"><?php echo $pat['age']; ?>&nbsp;Years</td>
-</tr>
-<tr>
-<td width="8%" style="font-size:12px; font-weight:bold;">SEX</td><td width="15%" style="font-size:12px;"><?php echo $pat['sex']; ?><td width="20%" style="font-size:12px; font-weight:bold;">NAME OF DOCTOR</td><td width="30%"></td><td width="8%" style="font-size:12px; font-weight:bold;">Department</td><td width="15%" style="font-size:12px;"></td>
-</tr>
-<tr>
-<td width="8%" style="font-size:12px; font-weight:bold;">IPD NO.</td><td width="15%" style="font-size:12px;"></td><td width="20%" style="font-size:12px; font-weight:bold;">DOA</td><td width="30%"></td><td width="8%" style="font-size:12px; font-weight:bold;">DOD</td><td width="15%" style="font-size:12px;"></td>
-</tr>
+<hr color="#000000" style="margin: 8px 0 12px 0;">
 
+<div align="center" style="font-size:16px; margin-bottom:10px;"><STRONG><u>DISCHARGE SUMMARY</u></STRONG></div>
+
+<table border="1" cellpadding="6" cellspacing="0" class="meta-table">
+<tr>
+<td width="10%" style="font-weight:bold;">UHID</td>
+<td width="15%"><?php echo $l_uhid; ?></td>
+<td width="20%" style="font-weight:bold;">NAME OF THE PATIENT</td>
+<td width="30%"><?php echo htmlspecialchars($pat['pat_name']); ?></td>
+<td width="10%" style="font-weight:bold;">AGE</td>
+<td width="15%"><?php echo $pat['age']; ?> Years</td>
+</tr>
+<tr>
+<td style="font-weight:bold;">SEX</td>
+<td><?php echo htmlspecialchars($pat['sex']); ?></td>
+<td style="font-weight:bold;">NAME OF DOCTOR</td>
+<td><?php echo htmlspecialchars($referby); ?></td>
+<td style="font-weight:bold;">Department</td>
+<td><?php echo htmlspecialchars($dep_name); ?></td>
+</tr>
+<tr>
+<td style="font-weight:bold;">IPD NO.</td>
+<td><?php echo $ipd_number ? '#' . $ipd_number : ''; ?></td>
+<td style="font-weight:bold;">DOA (Admission Date)</td>
+<td><strong><?php echo $doa; ?></strong></td>
+<td style="font-weight:bold;">DOD (Discharge Date)</td>
+<td><strong><?php echo $dod; ?></strong></td>
+</tr>
 </table>
 
+<div class="section-title">Final Diagnosis:</div>
+<div class="section-content">
+    <?php echo $ipd_row['final_diagnosis'] ? htmlspecialchars($ipd_row['final_diagnosis']) : '......................................................................................................................................................'; ?>
+</div>
 
-<div class="pos" id="_62:362" style="top:350;left:62">
-<span id="_14.6" style="font-weight:bold; font-family:Arial; font-size:14.6px; color:#000000">
-<u>Final Diagnosis:</u></span>
+<div class="section-title">Course in the Hospital:</div>
+<div class="section-content">
+    Patient was admitted on <?php echo $doa ?: '..........'; ?> and managed conservatively with indoor care and regular observation.
 </div>
-<div class="pos" id="_62:403" style="top:390;left:62">
-<span id="_14.6" style="font-weight:bold; font-family:Arial; font-size:14.6px; color:#000000">
-<u>Course in the Hospital:</u></span>
+
+<div class="section-title">Key Investigations and Findings (during stay):</div>
+<div class="section-content">
+    <?php 
+    if (!empty($inv_list)) {
+        echo implode(", &nbsp;", $inv_list);
+    } else {
+        echo 'Routine indoor investigations completed as per protocol.';
+    }
+    ?>
 </div>
-<div class="pos" id="_62:565" style="top:540;left:62">
-<span id="_14.6" style="font-weight:bold; font-family:Arial; font-size:14.6px; color:#000000">
-<U>K</U><U>e</U><U>y</U><U> </U><U>I</U><U>n</U><U>v</U><U>e</U><U>s</U><U>t</U><U>i</U><U>g</U><U>a</U><U>t</U><U>i</U><U>o</U><U>n</U><U>s</U><U> </U><U>a</U><U>n</U><U>d</U><U> </U><U>F</U><U>i</U><U>n</U><U>d</U><U>i</U><U>n</U><U>g</U><U>s</U><U> </U><U>(</U><U>d</U><U>u</U><U>r</U><U>i</U><U>n</U><U>g</U><U> </U><U>s</U><U>t</U><U>a</U><U>y</U><U>)</U><U>:</U></span>
+
+<div class="section-title">Condition at the time of Discharge:</div>
+<div class="section-content">
+    <?php echo $ipd_row['discharge_condition'] ? htmlspecialchars($ipd_row['discharge_condition']) : 'Satisfactory / Improved'; ?>
 </div>
-<div class="pos" id="_62:626" style="top:610;left:62">
-<span id="_14.6" style="font-weight:bold; font-family:Arial; font-size:14.6px; color:#000000">
-<U>C</U><U>o</U><U>n</U><U>d</U><U>i</U><U>t</U><U>i</U><U>o</U><U>n</U><U> </U><U>a</U><U>t</U><U> </U><U>t</U><U>h</U><U>e</U><U> </U><U>t</U><U>i</U><U>m</U><U>e</U><U> </U><U>D</U><U>i</U><U>s</U><U>c</U><U>h</U><U>a</U><U>r</U><U>g</U><U>e</U><U>:</U></span>
+
+<div class="section-title">Discharge Medications:</div>
+<div class="section-content" style="min-height:50px;">
+    <?php echo $ipd_row['discharge_summary'] ? nl2br(htmlspecialchars($ipd_row['discharge_summary'])) : 'As prescribed in treatment sheet.'; ?>
 </div>
-<div class="pos" id="_62:667" style="top:650;left:62">
-<span id="_14.6" style="font-weight:bold; font-family:Arial; font-size:14.6px; color:#000000">
-<u>Discharge Medications:</u></span>
+
+<div class="section-title">Follow-up Advice and Instructions:</div>
+<div class="section-content" style="min-height:30px;">
+    Review in OPD after 7 days or SOS in case of emergency.
 </div>
-<div class="pos" id="_62:850" style="top:750;left:62">
-<span id="_14.6" style="font-weight:bold; font-family:Arial; font-size:14.6px; color:#000000">
-<u>Follow-up Advice and Instructions:</u></span>
-</div>
-<div class="pos" id="_62:931" style="top:850;left:62">
-<span id="_15.2" style="font-weight:bold; font-family:Arial; font-size:15.2px; color:#000000">
-Name of Doctor:</span>
-</div>
-<div class="pos" id="_659:931" style="top:850;left:600">
-<span id="_16.3" style="font-weight:bold; font-family:Arial; font-size:16.3px; color:#000000">
-Date:</span>
-</div>
-<div class="pos" id="_62:972" style="top:900;left:62">
-<span id="_14.8" style="font-weight:bold; font-family:Arial; font-size:14.8px; color:#000000">
-Signature:</span>
-</div>
-<div class="pos" id="_662:972" style="top:900;left:600">
-<span id="_16.3" style="font-weight:bold; font-family:Arial; font-size:16.3px; color:#000000">
-Time:</span>
-</div>
-<div class="pos" id="_62:1033" style="top:950;left:62">
-<span id="_15.1" style="font-weight:bold; font-family:Arial; font-size:15.1px; color:#000000">
-<U>I</U><U>n</U><U> </U><U>c</U><U>a</U><U>s</U><U>e</U><U> </U><U>o</U><U>f</U><U> </U><U>a</U><U>n</U><U>y</U><U> </U><U>e</U><U>m</U><U>e</U><U>r</U><U>g</U><U>e</U><U>n</U><U>c</U><U>y</U><U>,</U><U> </U><U>c</U><U>o</U><U>n</U><U>t</U><U>a</U><U>c</U><U>t</U><U> </U><U>N</U><U>u</U><U>m</U><U>b</U><U>e</U><U>r</U><U> </U><U>o</U><U>f</U><U> </U><U>H</U><U>o</U><U>s</U><U>p</U><U>i</U><U>t</U><U>a</U><U>l</U><U> </U><U>(</U><U>0</U><U>5</U><U>6</U><U>9</U><U>2</U><U>-</U><U>2</U><U>3</U><U>2</U><U>4</U><U>5</U><U>7</U><U>9</U><U>)</U></span>
-</div>
-</nowrap></nobr>
+
+<br><br>
+<table style="width:100%; border:none; margin-top:20px;">
+<tr>
+<td width="50%" align="left" style="font-size:13px; line-height:1.8;">
+    <strong>Name of Doctor:</strong> <?php echo htmlspecialchars($referby); ?><br>
+    <strong>Signature:</strong> _______________________<br>
+    <br>
+    <small><u>In case of any emergency, contact Hospital: (05692-2324579)</u></small>
+</td>
+<td width="50%" align="right" style="font-size:13px; line-height:1.8;">
+    <strong>Date of Discharge:</strong> <?php echo $dod ?: date('d-m-Y'); ?><br>
+    <strong>Time:</strong> <?php echo ($ipd_row && $ipd_row['discharge_time']) ? substr($ipd_row['discharge_time'], 0, 5) : date('H:i'); ?><br>
+</td>
+</tr>
+</table>
+
 </body>
 </html>

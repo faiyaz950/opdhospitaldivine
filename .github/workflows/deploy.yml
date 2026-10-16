@@ -27,6 +27,8 @@ jobs:
           chmod 600 ~/.ssh/deploy_key
           # Pinned host key: ssh-keyscan from runners gets dropped by the host's connection limits.
           echo "cpanel-host ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC7J3IA5kcWLuFJmXx+VtPvrJayqeyY0Cms8+bUa9qj9tch7LrDogBXztv8ZLtgqGkgo4UL3UK7tAKCpII+9VaRaA2GapxWOSptG3QESVMHoPxV6EP3qVipmyxepLoBMP3l+3DKajdU9DA/fHP/7FoKmsKzLGtbEJTXHY3pZ7kh6tlQfxcWBYKkneX5UxJeS7g7YXHftQy+PT7uf1xcOHa5fDhZ8oT9qm8fk64YxIgGWC/mT83BJzo/QYxrVqnx3xypIXOMrzR3DGk4WcTwqhATfcn+3s2Y50a37C6QXvFgmcdyCW4ujFKRLcZaADaoLdYues5zvfl/67GgtMr62D9V" > ~/.ssh/known_hosts
+          echo "cpanel-host ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIgzSVFvngbAThG4EfclVxlmlHjvIViYupnQHyHkNgqQ divine-deploy" >> ~/.ssh/known_hosts
+
 
       # No --delete: config.local.php and any server-only files must survive deploys.
       - name: Upload files

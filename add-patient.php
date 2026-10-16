@@ -173,6 +173,13 @@ if(!(isset($_SESSION['user_login'])))
                  ?>
                  </select>
 				  </td></tr>
+                  <tr> <td class="style8">Registration Date :</td>
+              <td>
+                 <input type="date" name="reg_date" value="<?php echo date('Y-m-d'); ?>" style="width:160px;">
+                 &nbsp;&nbsp;
+                 <input type="time" name="reg_time" value="<?php echo date('H:i'); ?>" style="width:110px;">
+                 <br><span style="font-size:11px; color:#888;">(Backdate allowed)</span>
+				  </td></tr>
 
 <!--<tr> <td class="style8">Fee Received :</td>
               <td>                    
