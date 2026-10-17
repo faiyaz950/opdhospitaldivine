@@ -110,4 +110,18 @@ if (!function_exists('mysql_connect')) {
         }
         return mysqli_close($link);
     }
+
+    function mysql_real_escape_string(string $unescaped_string, $link_identifier = null): string
+    {
+        $link = $link_identifier ?: mysql_get_link();
+        if (!$link instanceof mysqli) {
+            return addslashes($unescaped_string);
+        }
+        return mysqli_real_escape_string($link, $unescaped_string);
+    }
+
+    function mysql_escape_string(string $unescaped_string): string
+    {
+        return mysql_real_escape_string($unescaped_string);
+    }
 }

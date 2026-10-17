@@ -65,7 +65,12 @@ if(isset($_POST['submit']))
         $sql1 = mysql_query("insert into billing_mst(bill_id, bill_type, bill_typenumber, pat_id, bill_amount, created_date, create_date) values ('$bill_no', 'IPD','$ipd_id','$p_id', '$rate', '$datetime', '$date')");
     }
 
-    if($sql1)
+    if($sql1 || $sql)
+    {
+        header("Location: ../show_ipd1.php");
+        exit;
+    }
+    else
     {
         header("Location: ../show_ipd1.php");
         exit;
